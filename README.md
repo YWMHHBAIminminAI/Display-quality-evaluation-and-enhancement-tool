@@ -1,30 +1,17 @@
-# DynamicGamma
-DynamicGamma
+# Display quality evaluation and enhancement tool.
+显示画质评测与增强工具
 
+项目描述：
+1.独立设计开发一款用于图像画质调试与增强的演示工具，旨在模拟和验证画质引擎核心算法，探索AI技术在画质增强中的应用。
+2.打造“屏幕画质客观评价系统”​​
 
-动态Gamma校正引擎
+## 技术栈：
+- C++/Qt 或 C#/WPF 做上层框架，集成OpenCV实现基础图像增强算法（亮度、对比度、锐化等）
 
-journey
-    title Gamma校正开发流程
-    section 训练阶段
-      Python训练模型 --> ONNX导出 --> 量化压缩
-    section 部署阶段
-      C#封装DLL --> WPF集成 --> 沙盒测试
+## 模块
+- 集成 OpenCV，实现亮度/对比度、伽马校正、图像锐化等多种基础图像增强算法。
+    - ​​亮度、均匀性、色准​​：用OpenCV测量。
+- ​​坏点、Mura（斑驳）​​：实现传统的图像检测算法。
+    - ​​输出​​：一份自动生成的评测报告，指出问题并​​建议调整哪些IC参数​​（如“建议提高耦合优化等级”）。不仅能“人眼判断”，还能用​​算法量化评估​​，并能​​反向指导调试​​，形成了闭环。
+- （可选进阶）调研并尝试集成基于CNN的轻量级超分辨率模型，实现图像的智能清晰化处理。
 
-
-      // C#调用ONNX模型
-public class GammaCorrector
-{
-    private InferenceSession _session;
-    public GammaCorrector(string modelPath)
-    {
-        _session = new InferenceSession(modelPath);
-    }
-    
-    public Bitmap Process(Bitmap img)
-    {
-        var inputs = new List<NamedOnnxValue> { ... };
-        using var results = _session.Run(inputs);
-        return ConvertToBitmap(results);
-    }
-}
